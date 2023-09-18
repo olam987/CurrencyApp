@@ -1,0 +1,53 @@
+<div class="wrapper" *ngIf="currencyDataFrom && currencyDataTo">
+  <header>Currency Converter</header>
+  <form #myForm="ngForm">
+    <div class="amount form-group">
+      <p>Enter Amount</p>
+      <input type="text" value="1" class="form-control" ngModel name="amountMoney">
+    </div>
+    <div class="drop-list">
+      <div class="form">
+        <p>Form</p>
+        <div class="select-box form-group" >
+          <ng-container [ngSwitch]="currencyTypeFrom" >
+            <img *ngSwitchCase="'USD'" src="/assets/img/usd.png" alt="flag"/>
+            <img *ngSwitchCase="'THB'" src="/assets/img/thb.png" alt="flag"/>
+            <img *ngSwitchCase="'AUD'" src="/assets/img/aud.png" alt="flag"/>
+            <img *ngSwitchCase="'CAD'" src="/assets/img/cad.png" alt="flag"/>
+            <img *ngSwitchCase="'NZD'" src="/assets/img/nzd.png" alt="flag">
+            <img *ngSwitchDefault src="/assets/img/usd.png" alt="flag"/>
+          </ng-container>
+          <select class="form-control" [(ngModel)]="currencyTypeFrom" name="currencyTypeFrom" (change)="getCurrencyDataFrom()">
+            <option value="USD" selected>USD</option>
+            <option value="THB">THB</option>
+            <option value="AUD">AUD</option>
+            <option value="CAD">CAD</option>
+            <option value="NZD">NZD</option>
+          </select>
+        </div>
+      </div>
+      <div class="to">
+        <p>To</p>
+        <div class="select-box form-group">
+          <ng-container [ngSwitch]="currencyTypeTo">
+            <img *ngSwitchCase="'USD'" src="/assets/img/usd.png" alt="flag"/>
+            <img *ngSwitchCase="'THB'" src="/assets/img/thb.png" alt="flag"/>
+            <img *ngSwitchCase="'AUD'" src="/assets/img/aud.png" alt="flag"/>
+            <img *ngSwitchCase="'CAD'" src="/assets/img/cad.png" alt="flag"/>
+            <img *ngSwitchCase="'NZD'" src="/assets/img/nzd.png" alt="flag">
+            <img *ngSwitchDefault src="/assets/img/thb.png" alt="flag"/>
+          </ng-container>
+          <select class="form-control" [(ngModel)]="currencyTypeTo" name="currencyTypeTo" (change)="getCurrencyDataTo()">
+            <option value="USD" selected>USD</option>
+            <option value="THB">THB</option>
+            <option value="AUD">AUD</option>
+            <option value="CAD">CAD</option>
+            <option value="NZD">NZD</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="exchange-rate">{{finalValue}}</div>
+    <button (click)="onSubmit(myForm)">Get Exchange Rate</button>
+  </form>
+</div>
